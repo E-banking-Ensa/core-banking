@@ -13,8 +13,7 @@ public class Virement extends Transaction {
     @ManyToOne
     private Account Destination;
     private String Motife;
-    @Enumerated(EnumType.STRING)
-    private VirementType type_virement;
+
 
 
 }

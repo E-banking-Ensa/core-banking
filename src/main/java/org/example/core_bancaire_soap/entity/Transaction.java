@@ -6,6 +6,7 @@ import lombok.Getter;
 
 import java.security.Timestamp;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -15,6 +16,13 @@ public  class Transaction {
     private int id;
     private Double Montant;
     private LocalDateTime date;
+    @ManyToMany
+    @JoinTable(
+            name = "accounts_transactions",
+            joinColumns = @JoinColumn(name = "transaction_id"),
+            inverseJoinColumns = @JoinColumn(name = "account_id")
+    )
+    private List<Account> accounts;
     @Enumerated(EnumType.STRING)
     private TypeTransaction type;
 

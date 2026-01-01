@@ -26,7 +26,7 @@ public class VirementSoap {
             int destId = request.getDest().intValue();
 
             // Appel du service métier
-            virementService.virement(sourceId, destId, request.getMontant());
+            virementService.virement(sourceId, destId, request.getMontant(),request.getMotif());
 
             response.setStatus("SUCCES");
         } catch (RuntimeException e) {

@@ -17,7 +17,7 @@ public class Account {
     private Client client;
     @OneToMany
     private List<Account> beneficiere;
-    @OneToMany
+    @ManyToMany(mappedBy = "accounts")
     private List<Transaction> transactions;
     private double rib;
     public int getId() {
