@@ -24,6 +24,38 @@ public class Account {
         return id;
     }
 
+    public Client getClient() {
+        return client;
+    }
+
+    public void setClient(Client client) {
+        this.client = client;
+    }
+
+    public List<Account> getBeneficiere() {
+        return beneficiere;
+    }
+
+    public void setBeneficiere(List<Account> beneficiere) {
+        this.beneficiere = beneficiere;
+    }
+
+    public List<Transaction> getTransactions() {
+        return transactions;
+    }
+
+    public void setTransactions(List<Transaction> transactions) {
+        this.transactions = transactions;
+    }
+
+    public double getRib() {
+        return rib;
+    }
+
+    public void setRib(double rib) {
+        this.rib = rib;
+    }
+
     public void setId(int id) {
         this.id = id;
     }

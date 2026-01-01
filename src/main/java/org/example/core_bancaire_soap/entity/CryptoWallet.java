@@ -12,8 +12,9 @@ public class CryptoWallet {
     @Column(unique = true, nullable = false)
     private String walletAddress;
 
-    private Double balanceBTC;
-    private Double balanceETH;
+    private Double balance;
+    private String currency;
+
 
     @OneToOne(mappedBy = "cryptoWallet")
     private Client client;
@@ -23,8 +24,8 @@ public class CryptoWallet {
 
     public CryptoWallet(String walletAddress) {
         this.walletAddress = walletAddress;
-        this.balanceBTC = 0.0;
-        this.balanceETH = 0.0;
+        this.balance = 0.0;
+
     }
 
     public Long getId() {
@@ -43,21 +44,6 @@ public class CryptoWallet {
         this.walletAddress = walletAddress;
     }
 
-    public Double getBalanceBTC() {
-        return balanceBTC;
-    }
-
-    public void setBalanceBTC(Double balanceBTC) {
-        this.balanceBTC = balanceBTC;
-    }
-
-    public Double getBalanceETH() {
-        return balanceETH;
-    }
-
-    public void setBalanceETH(Double balanceETH) {
-        this.balanceETH = balanceETH;
-    }
 
     public Client getClient() {
         return client;
