@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.example.core_bancaire_soap.entity.Account;
 import org.example.core_bancaire_soap.entity.TypeTransaction;
 import org.example.core_bancaire_soap.entity.Virement;
+import org.example.core_bancaire_soap.entity.VirementType;
 import org.example.core_bancaire_soap.repository.AccountRepository;
 import org.example.core_bancaire_soap.repository.VirementRepository;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class VirementService {
     private final VirementRepository virementRepository;
 
     @Transactional // <--- CRITIQUE : Tout ou rien
-    public void virement(int sourceId, int destId, double montant,String motif) {
+    public void virement(int sourceId, int destId, double montant,String motif,String type) {
 
         // 1. Récupération des comptes
         List<Account> comptesConcernes = new ArrayList<>();
@@ -51,6 +52,7 @@ public class VirementService {
         comptesConcernes.add(source);
         comptesConcernes.add(destination);
         virement.setAccounts(comptesConcernes);
+        virement.setType_virement(VirementType.valueOf(type));
         virementRepository.save(virement);
 
 
