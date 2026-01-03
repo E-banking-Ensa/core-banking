@@ -6,10 +6,7 @@ import me.polytech.ebanking_soap.DepotRequest;
 import me.polytech.ebanking_soap.DepotResponse;
 import me.polytech.ebanking_soap.RetraitRequest;
 import me.polytech.ebanking_soap.RetraitResponse;
-import org.example.core_bancaire_soap.entity.Account;
-import org.example.core_bancaire_soap.entity.Depot;
-import org.example.core_bancaire_soap.entity.Transaction;
-import org.example.core_bancaire_soap.entity.TypeTransaction;
+import org.example.core_bancaire_soap.entity.*;
 import org.example.core_bancaire_soap.repository.AccountRepository;
 import org.example.core_bancaire_soap.repository.TransactionRepository;
 import org.springframework.stereotype.Service;
@@ -18,6 +15,7 @@ import javax.security.auth.login.AccountNotFoundException;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -39,6 +37,7 @@ public class AccountService {
                 d.setDate(LocalDateTime.now());
                 d.setType(TypeTransaction.DEPOSIT);
                 d.setAccount(account);
+                d.setAccounts(List.of(account));
 
                 transactionRepository.save(d);
                 accountRepository.save(account);
@@ -72,6 +71,14 @@ public class AccountService {
                     retraitResponse.setMontant(request.getMontant());
                     return retraitResponse;
                 }
+                Retrait r = new Retrait();
+                r.setAccount(account);
+                r.setMontant(account.getBalance());
+                r.setDate(LocalDateTime.now());
+                r.setType(TypeTransaction.RETRAIT);
+                r.setAccounts(List.of(account));
+                transactionRepository.save(r);
+
                 accountRepository.save(account);
                 retraitResponse.setStatus("Success");
                 retraitResponse.setMontant(request.getMontant());
