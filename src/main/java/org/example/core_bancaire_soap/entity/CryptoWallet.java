@@ -1,32 +1,24 @@
 package org.example.core_bancaire_soap.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
+import java.util.List;
 
 @Entity
 @Table(name = "crypto_wallets")
+
 public class CryptoWallet {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
-    private String walletAddress;
+    @Column(nullable = false, unique = true) // Un wallet par user
+    private Long userId;
 
-    private Double balance;
-    private String currency;
-
-
-    @OneToOne(mappedBy = "cryptoWallet")
-    private Client client;
-
-
-    public CryptoWallet() {}
-
-    public CryptoWallet(String walletAddress) {
-        this.walletAddress = walletAddress;
-        this.balance = 0.0;
-
-    }
+    // Relation vers les balances (BTC, ETH, etc.)
+    @OneToMany(mappedBy = "wallet", cascade = CascadeType.ALL)
+    private List<CryptoBalance> balances;
 
     public Long getId() {
         return id;
@@ -36,36 +28,19 @@ public class CryptoWallet {
         this.id = id;
     }
 
-    public String getWalletAddress() {
-        return walletAddress;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setWalletAddress(String walletAddress) {
-        this.walletAddress = walletAddress;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
-
-    public Client getClient() {
-        return client;
+    public List<CryptoBalance> getBalances() {
+        return balances;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-    }
-
-    public Double getBalance() {
-        return balance;
-    }
-
-    public void setBalance(Double balance) {
-        this.balance = balance;
-    }
-
-    public String getCurrency() {
-        return currency;
-    }
-
-    public void setCurrency(String currency) {
-        this.currency = currency;
+    public void setBalances(List<CryptoBalance> balances) {
+        this.balances = balances;
     }
 }
