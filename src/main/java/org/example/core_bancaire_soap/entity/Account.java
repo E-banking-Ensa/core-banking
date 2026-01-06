@@ -20,6 +20,7 @@ public class Account {
     @ManyToMany(mappedBy = "accounts")
     private List<Transaction> transactions;
     private double rib;
+
     public int getId() {
         return id;
     }
